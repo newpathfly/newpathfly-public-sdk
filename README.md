@@ -10,6 +10,11 @@ For example, for Maven based project, add
 
 ```xml
 <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-webflux</artifactId>
+</dependency>
+
+<dependency>
     <groupId>com.newpathfly</groupId>
     <artifactId>newpathfly-public-sdk</artifactId>
     <version>${newpathfly-sdk-version}</version>
