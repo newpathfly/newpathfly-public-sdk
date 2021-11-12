@@ -11,9 +11,32 @@
 
     <groupId>com.newpathfly</groupId>
     <artifactId>newpathfly-public-sdk</artifactId>
-    <version>2.3.8</version>
+    <version>2.4.0</version>
+
     <name>newpathfly-public-sdk</name>
     <description>newpathfly public sdk</description>
+    <url>https://newpathfly.ticketcombine.com</url>
+    <developers>
+        <developer>
+            <id>newpathfly</id>
+            <organization>TicketCombine</organization>
+            <email>dev@ticketcombine.com</email>
+            <organizationUrl>ticketcombine.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/newpathfly/newpathfly-public-sdk.git</connection>
+        <url>https://github.com/newpathfly/newpathfly-public-sdk</url>
+    </scm>
 
     <properties>
         <java.version>8</java.version>
@@ -68,6 +91,54 @@
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <keyname>${gpg.keyname}</keyname>
+                            <passphrase>${gpg.passphrase}</passphrase>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -83,6 +154,7 @@
                             <generatorName>java</generatorName>
                             <apiPackage>com.newpathfly.api</apiPackage>
                             <modelPackage>com.newpathfly.model</modelPackage>
+                            <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
                             <configOptions>
                                 <dateLibrary>java8</dateLibrary>
                                 <library>webclient</library>
@@ -99,4 +171,10 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>
